@@ -35,7 +35,7 @@ class _HomePageState extends ConsumerState<HomePage> {
 
 
     return Scaffold(
-        backgroundColor: Colors.black87,
+        backgroundColor: Colors.black,
         body: OrientationBuilder(
           builder: (context, orientation) {
             if (orientation == Orientation.landscape) {
@@ -45,7 +45,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
                     child: Container(
-                      color: Colors.black87,
+                      color: Colors.black,
                     ),
                   ),
 
