@@ -119,25 +119,25 @@ class VISS {
             if (dp["value"] != "---") {
               switch (path) {
                 case VSPath.vehicleSpeed:
-                  vehicleSignal.update(speed: double.parse(dp["value"]));
+                  vehicleSignal.update(speed: dp["value"]);
                   break;
                 case VSPath.vehicleEngineRPM:
-                  vehicleSignal.update(rpm: double.parse(dp["value"]));
+                  vehicleSignal.update(rpm: dp["value"].toDouble());
                   break;
                 case VSPath.vehicleFuelLevel:
-                  vehicleSignal.update(fuelLevel: double.parse(dp["value"]));
+                  vehicleSignal.update(fuelLevel: dp["value"]);
                   break;
                 case VSPath.vehicleFrontLeftTier:
-                  vehicleSignal.update(frontLeftTP: double.parse(dp["value"]));
+                  vehicleSignal.update(frontLeftTP: dp["value"]);
                   break;
                 case VSPath.vehicleFrontRightTier:
-                  vehicleSignal.update(frontRightTP: double.parse(dp["value"]));
+                  vehicleSignal.update(frontRightTP: dp["value"]);
                   break;
                 case VSPath.vehicleRearLeftTier:
-                  vehicleSignal.update(rearLeftTP: double.parse(dp["value"]));
+                  vehicleSignal.update(rearLeftTP: dp["value"]);
                   break;
                 case VSPath.vehicleRearRightTier:
-                  vehicleSignal.update(rearRightTP: double.parse(dp["value"]));
+                  vehicleSignal.update(rearRightTP: dp["value"]);
                   break;
 
 
@@ -149,14 +149,14 @@ class VISS {
                   break;
                 case VSPath.vehicleCurrentLatitude:
                   vehicleSignal.update(
-                      currentLatitude: double.parse(dp["value"]));
+                      currentLatitude: dp["value"]);
                   break;
                 case VSPath.vehicleCurrentLongitude:
                   vehicleSignal.update(
-                      currentLongitude: double.parse(dp["value"]));
+                      currentLongitude: dp["value"]);
                   break;
                 case VSPath.vehicleFuelRate:
-                  vehicleSignal.update(fuelRate: double.parse(dp["value"]));
+                  vehicleSignal.update(fuelRate: dp["value"]);
                   break;
                 case VSPath.vehicleInsideTemperature:
                   vehicleSignal.update(
