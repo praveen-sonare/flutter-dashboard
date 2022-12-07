@@ -11,14 +11,14 @@ class VSPath {
   static const String vehicleAmbientAirTemperature =
       "Vehicle.AmbientAirTemperature";
 
-  static const String vehicleFrontLeftTier =
+  static const String vehicleFrontLeftTire =
       "Vehicle.Chassis.Axle.Row1.Wheel.Left.Tire.Pressure";
-  static const String vehicleFrontRightTier =
+  static const String vehicleFrontRightTire =
       "Vehicle.Chassis.Axle.Row1.Wheel.Right.Tire.Pressure";
-  static const String vehicleRearLeftTier =
+  static const String vehicleRearLeftTire =
       "Vehicle.Chassis.Axle.Row2.Wheel.Left.Tire.Pressure";
 
-  static const String vehicleRearRightTier =
+  static const String vehicleRearRightTire =
       "Vehicle.Chassis.Axle.Row2.Wheel.Right.Tire.Pressure";
   static const String vehicleIsChildLockActiveLeft =
       "Vehicle.Cabin.Door.Row2.Left.IsChildLockActive";

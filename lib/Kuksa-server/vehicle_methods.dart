@@ -14,10 +14,10 @@ class VISS {
     subscribe(socket,ref, VSPath.vehicleSpeed);
     subscribe(socket,ref, VSPath.vehicleEngineRPM);
     subscribe(socket,ref, VSPath.vehicleFuelLevel);
-    subscribe(socket,ref, VSPath.vehicleFrontLeftTier);
-    subscribe(socket, ref,VSPath.vehicleFrontRightTier);
-    subscribe(socket, ref,VSPath.vehicleRearLeftTier);
-    subscribe(socket,ref, VSPath.vehicleRearRightTier);
+    subscribe(socket,ref, VSPath.vehicleFrontLeftTire);
+    subscribe(socket, ref,VSPath.vehicleFrontRightTire);
+    subscribe(socket, ref,VSPath.vehicleRearLeftTire);
+    subscribe(socket,ref, VSPath.vehicleRearRightTire);
     subscribe(socket, ref,VSPath.vehicleIsChildLockActiveLeft);
     subscribe(socket,ref, VSPath.vehicleIsChildLockActiveRight);
     subscribe(socket,ref, VSPath.vehicleCurrentLatitude);
@@ -32,10 +32,10 @@ class VISS {
     get(socket,ref, VSPath.vehicleEngineRPM);
     get(socket,ref, VSPath.vehicleFuelLevel);
     get(socket,ref,VSPath.vehicleAmbientAirTemperature);
-    get(socket,ref,VSPath.vehicleFrontLeftTier);
-    get(socket,ref, VSPath.vehicleFrontRightTier);
-    get(socket,ref, VSPath.vehicleRearLeftTier);
-    get(socket,ref, VSPath.vehicleRearRightTier);
+    get(socket,ref,VSPath.vehicleFrontLeftTire);
+    get(socket,ref, VSPath.vehicleFrontRightTire);
+    get(socket,ref, VSPath.vehicleRearLeftTire);
+    get(socket,ref, VSPath.vehicleRearRightTire);
     get(socket,ref,VSPath.vehicleIsChildLockActiveLeft);
     get(socket,ref, VSPath.vehicleIsChildLockActiveRight);
     get(socket,ref,VSPath.vehicleCurrentLatitude);
@@ -127,16 +127,16 @@ class VISS {
                 case VSPath.vehicleFuelLevel:
                   vehicleSignal.update(fuelLevel: dp["value"]);
                   break;
-                case VSPath.vehicleFrontLeftTier:
+                case VSPath.vehicleFrontLeftTire:
                   vehicleSignal.update(frontLeftTP: dp["value"]);
                   break;
-                case VSPath.vehicleFrontRightTier:
+                case VSPath.vehicleFrontRightTire:
                   vehicleSignal.update(frontRightTP: dp["value"]);
                   break;
-                case VSPath.vehicleRearLeftTier:
+                case VSPath.vehicleRearLeftTire:
                   vehicleSignal.update(rearLeftTP: dp["value"]);
                   break;
-                case VSPath.vehicleRearRightTier:
+                case VSPath.vehicleRearRightTire:
                   vehicleSignal.update(rearRightTP: dp["value"]);
                   break;
 
