@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-import 'package:dashboard_app/Tier_pressure.dart';
+import 'package:dashboard_app/Tire_pressure.dart';
 import 'package:dashboard_app/drawArrow.dart';
 import 'package:dashboard_app/provider.dart';
 import 'package:dashboard_app/size.dart';
@@ -66,8 +66,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                     child: Column(
 
                       children: [
-                        TierPressure(
-                          tname: 'L Front Tier',
+                        TirePressure(
+                          tname: 'L Front Tire',
                           tpress: vehicle.frontLeftTP,
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.end,
@@ -98,8 +98,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                             ),
                           ),
                         ),
-                        TierPressure(
-                          tname: 'L Rear Tier',
+                        TirePressure(
+                          tname: 'L Rear Tire',
                           tpress: vehicle.rearLeftTP,
                           crossAxisAlignment: CrossAxisAlignment.end,
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -112,8 +112,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                     right: SizeConfig.safeBlockHorizontal * 7,
                     child: Column(
                       children: [
-                        TierPressure(
-                          tname: 'R Front Tier',
+                        TirePressure(
+                          tname: 'R Front Tire',
                           tpress: vehicle.frontRightTP,
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,8 +143,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                             ),
                           ),
                         ),
-                        TierPressure(
-                          tname: 'R Rear Tier',
+                        TirePressure(
+                          tname: 'R Rear Tire',
                           tpress: vehicle.rearRightTP,
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -285,7 +285,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.end,
                                       children: [
-                                        TierPressure(
+                                        TirePressure(
                                           tname: 'L Front Tire',
                                           tpress: vehicle.frontLeftTP,
                                           mainAxisAlignment:
@@ -330,7 +330,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                             ),
                                           ),
                                         ),
-                                        TierPressure(
+                                        TirePressure(
                                           tname: 'L Rear Tire',
                                           tpress: vehicle.rearLeftTP,
                                           mainAxisAlignment:
@@ -362,7 +362,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                     top: 0,
                                     child: Column(
                                       children: [
-                                        TierPressure(
+                                        TirePressure(
                                           tname: 'R Front Tire',
                                           tpress: vehicle.frontRightTP,
                                           mainAxisAlignment:
@@ -407,7 +407,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                             ),
                                           ),
                                         ),
-                                        TierPressure(
+                                        TirePressure(
                                           tname: 'R Rear Tire',
                                           tpress: vehicle.rearRightTP,
                                           mainAxisAlignment:

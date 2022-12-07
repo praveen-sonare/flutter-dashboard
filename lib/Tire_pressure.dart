@@ -5,12 +5,12 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 
 
 
-class TierPressure extends StatefulWidget {
+class TirePressure extends StatefulWidget {
   String tname;
   double tpress;
   CrossAxisAlignment crossAxisAlignment;
   MainAxisAlignment mainAxisAlignment;
-  TierPressure(
+  TirePressure(
       {Key? key,
       required this.tname,
       required this.tpress,
@@ -19,10 +19,10 @@ class TierPressure extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<TierPressure> createState() => _TierPressureState();
+  State<TirePressure> createState() => _TirePressureState();
 }
 
-class _TierPressureState extends State<TierPressure> {
+class _TirePressureState extends State<TirePressure> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
