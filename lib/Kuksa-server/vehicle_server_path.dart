@@ -2,7 +2,7 @@
 class VSPath {
   static const String vehicleSpeed = "Vehicle.Speed";
   static const String vehicleEngineRPM =
-      "Vehicle.Powertrain.CombustionEngine.Engine.Speed";
+      "Vehicle.Powertrain.CombustionEngine.Speed";
   static const String vehicleFuelLevel = "Vehicle.Powertrain.FuelSystem.Level";
 
 
