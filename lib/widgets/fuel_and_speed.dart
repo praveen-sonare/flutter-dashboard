@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-
-
 class SpeedAndFuel extends StatelessWidget {
   double fuel;
   double speed;
@@ -24,9 +22,26 @@ class SpeedAndFuel extends StatelessWidget {
         children: [
           CircularPercentIndicator(
             radius: SizeConfig.fontsize * 1.6,
+            percent: speed / 300,
+            lineWidth: SizeConfig.fontsize / 2,
+            backgroundColor: Color.fromARGB(255, 176, 213, 195),
+            progressColor: Colors.lightBlueAccent,
+            animation: true,
+            circularStrokeCap: CircularStrokeCap.round,
+            animateFromLastPercent: true,
+            center: Text(
+              speed.toInt().toString(),
+              style: SizeConfig.smallnormalfont,
+            ),
+            footer: Text(
+              'km/h',
+              style: SizeConfig.smallnormalfont2,
+            ),
+          ),
+          CircularPercentIndicator(
+            radius: SizeConfig.fontsize * 1.6,
             percent: fuel / 100,
             lineWidth: SizeConfig.fontsize / 2,
-
             backgroundColor: Colors.lightBlue.shade100,
             progressColor: fuel < 25
                 ? Colors.redAccent
@@ -37,29 +52,11 @@ class SpeedAndFuel extends StatelessWidget {
             circularStrokeCap: CircularStrokeCap.round,
             animateFromLastPercent: true,
             center: Text(
-              fuel.toString() + ' %',
+              fuel.toInt().toString() + ' %',
               style: SizeConfig.smallnormalfont,
             ),
             footer: Text(
-              'fuel',
-              style: SizeConfig.smallnormalfont2,
-            ),
-          ),
-          CircularPercentIndicator(
-            radius: SizeConfig.fontsize * 1.6,
-            percent: speed / 300,
-            lineWidth: SizeConfig.fontsize / 2,
-            backgroundColor: Color.fromARGB(255, 176, 213, 195),
-            progressColor: Colors.lightBlueAccent,
-            animation: true,
-            circularStrokeCap: CircularStrokeCap.round,
-            animateFromLastPercent: true,
-            center: Text(
-              speed.toString(),
-              style: SizeConfig.smallnormalfont,
-            ),
-            footer: Text(
-              'Speed in KM/H',
+              'Fuel',
               style: SizeConfig.smallnormalfont2,
             ),
           ),
@@ -83,7 +80,7 @@ class Rpm extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           Text(
-            "Engine Status",
+            "Engine",
             style: SizeConfig.smallnormalfont2,
           ),
           LinearPercentIndicator(
@@ -93,14 +90,14 @@ class Rpm extends StatelessWidget {
             animateFromLastPercent: true,
             animation: true,
             animationDuration: 500,
-            percent: rpm / 8000,
+            percent: rpm > 9000 ? 9000 : rpm / 9000,
             barRadius: Radius.circular(15),
             leading: Text(
               'RPM',
               style: SizeConfig.smallnormalfont,
             ),
             trailing: Text(
-              rpm.toString(),
+              rpm.toInt().toString(),
               style: SizeConfig.smallnormalfont2,
             ),
           ),
