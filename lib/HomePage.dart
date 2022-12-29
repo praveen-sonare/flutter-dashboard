@@ -1,20 +1,13 @@
 // SPDX-License-Identifier: Apache-2.0
 import 'package:dashboard_app/Tire_pressure.dart';
-import 'package:dashboard_app/drawArrow.dart';
-import 'package:dashboard_app/provider.dart';
 import 'package:dashboard_app/size.dart';
 import 'package:dashboard_app/widgets/child_lock.dart';
 import 'package:dashboard_app/widgets/fuel_and_speed.dart';
 import 'package:dashboard_app/widgets/weather.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:latlng/latlng.dart';
-
-
 
 import 'Kuksa-server/vehicle_provider.dart';
-
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -28,442 +21,150 @@ class _HomePageState extends ConsumerState<HomePage> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     final vehicle = ref.watch(vehicleSignalProvider);
-    LatLng pos = LatLng(vehicle.currentLatitude, vehicle.currentLongitude);
-
-    DateTime _now = ref.watch(DateTimeProvider);
-
-
 
     return Scaffold(
         backgroundColor: Colors.black,
-        body: OrientationBuilder(
-          builder: (context, orientation) {
-            if (orientation == Orientation.landscape) {
-              return Stack(
+        body: Stack(
+          children: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(
+                  SizeConfig.safeBlockHorizontal * 3,
+                  SizeConfig.safeBlockVertical * 3,
+                  SizeConfig.safeBlockHorizontal * 3,
+                  SizeConfig.safeBlockVertical),
+              child: Column(
                 children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
+                  SizedBox(height: SizeConfig.safeBlockVertical),
+                  Flexible(
+                    flex: 1,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [],
+                    ),
+                  ),
+                  SizedBox(height: SizeConfig.safeBlockVertical),
+                  Flexible(
+                    flex: 2,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Flexible(
+                          flex: 1,
+                          child: weather(
+                            insideTemperatue: vehicle.insideTemperature,
+                            outsideTempearure: vehicle.outsideTemperature,
+                          ),
+                        ),
+                        Flexible(
+                          flex: 2,
+                          child: SpeedAndFuel(
+                              fuel: vehicle.fuelLevel, speed: vehicle.speed),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Flexible(
+                    flex: 11,
                     child: Container(
-                      color: Colors.black,
-                    ),
-                  ),
-
-
-
-
-                  Positioned(
-                    right: SizeConfig.safeBlockHorizontal * 41,
-                    top: SizeConfig.safeBlockVertical * 58,
-                    child: ChildLockStatus(
-                        isChildLockActiveLeft: vehicle.isChildLockActiveLeft,
-                        isChildLockActiveRight: vehicle.isChildLockActiveRight),
-                  ),
-
-                  Positioned(
-                    top: SizeConfig.safeBlockVertical * 18,
-                    right: SizeConfig.safeBlockHorizontal * 38,
-                    child: Column(
-
-                      children: [
-                        TirePressure(
-                          tname: 'L Front Tire',
-                          tpress: vehicle.frontLeftTP,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                        ),
-                        Container(
-                          height: SizeConfig.safeBlockVertical * 10,
-                          width: SizeConfig.safeBlockHorizontal * 12,
-                          child: CustomPaint(
-                            painter: Arrowpaint2(),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  Positioned(
-                    top: SizeConfig.safeBlockVertical * 65,
-                    right: SizeConfig.safeBlockHorizontal * 38,
-                    child: Column(
-
-                      children: [
-                        RotatedBox(
-                          quarterTurns: 2,
-                          child: Container(
-                            height: SizeConfig.safeBlockVertical * 10,
-                            width: SizeConfig.safeBlockHorizontal * 12,
-                            child: CustomPaint(
-                              painter: Arrowpaint(),
-                            ),
-                          ),
-                        ),
-                        TirePressure(
-                          tname: 'L Rear Tire',
-                          tpress: vehicle.rearLeftTP,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Positioned(
-                    top: SizeConfig.safeBlockVertical * 18,
-                    right: SizeConfig.safeBlockHorizontal * 7,
-                    child: Column(
-                      children: [
-                        TirePressure(
-                          tname: 'R Front Tire',
-                          tpress: vehicle.frontRightTP,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                        ),
-                        Container(
-                          height: SizeConfig.safeBlockVertical * 10,
-                          width: SizeConfig.safeBlockHorizontal * 12,
-                          child: CustomPaint(
-                            painter: Arrowpaint(),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Positioned(
-                    top: SizeConfig.safeBlockVertical * 65,
-                    right: SizeConfig.safeBlockHorizontal * 7,
-                    child: Column(
-                      children: [
-                        RotatedBox(
-                          quarterTurns: 2,
-                          child: Container(
-                            height: SizeConfig.safeBlockVertical * 10,
-                            width: SizeConfig.safeBlockHorizontal * 12,
-                            child: CustomPaint(
-                              painter: Arrowpaint2(),
-                            ),
-                          ),
-                        ),
-                        TirePressure(
-                          tname: 'R Rear Tire',
-                          tpress: vehicle.rearRightTP,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Positioned(
-                    top: SizeConfig.safeBlockVertical * 20,
-                    right: SizeConfig.blockSizeHorizontal * 13,
-                    bottom: SizeConfig.blockSizeVertical * 20,
-                    child: SizedBox(
-                      height: SizeConfig.screenHeight * 0.6,
-                      width: SizeConfig.screenWidth * 0.30,
-                      child: AnimatedContainer(
-                        duration: Duration(milliseconds: 10),
-                        child: Image.asset('images/car_img.png'),
-                      ),
-                    ),
-                  ),
-
-                  Positioned(
-                      top: SizeConfig.safeBlockVertical * 7,
-                      left: SizeConfig.safeBlockHorizontal * 2,
-                      bottom: SizeConfig.safeBlockVertical * 4,
-                      child: Container(
-                        width: SizeConfig.screenWidth / 2,
-                        height: SizeConfig.screenHeight * 0.75,
-                        child: Column(
+                      //color: Colors.red,
+                      child: Row(children: [
+                        Spacer(),
+                        Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Rpm(rpm: vehicle.rpm),
-
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Avg. Fuel Consumtion',
-                                  style: SizeConfig.smallnormalfont,
-                                ),
-                                Text(
-                                  vehicle.fuelRate.toString() + ' KM/Litre',
-                                  style: SizeConfig.smallnormalfont,
-                                ),
-                              ],
-                            ),
-                            // ignore: prefer_const_constructors
-                            weather(
-                              insideTemperatue: vehicle.insideTemperature,
-                              outsideTempearure: vehicle.outsideTemperature,
-                            ),
-                            SpeedAndFuel(
-                                fuel: vehicle.fuelLevel, speed: vehicle.speed),
-                          ],
-                        ),
-                      ))
-                ],
-              );
-            }
-            //--------------------------Portrait mode ------------------------------------------------
-            else {
-              return Stack(
-                children: [
-                  Positioned(
-                    top: 0,
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(
-                          SizeConfig.safeBlockHorizontal * 2,
-                          SizeConfig.safeBlockVertical * 2,
-                          SizeConfig.safeBlockHorizontal * 2,
-                          0),
-
-                      child: Column(
-                        children: [
-                          Flexible(flex: 1, child: SizedBox()),
-                          SizedBox(
-                            height: SizeConfig.safeBlockVertical,
-                          ),
-                          Flexible(
-                            flex: 1,
-                            child: Row(
+                            Container(height: SizeConfig.safeBlockVertical * 6),
+                            TirePressure(
+                              tname: 'Left Front',
+                              tpress: vehicle.frontLeftTP,
                               mainAxisAlignment: MainAxisAlignment.end,
                               crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                              ],
                             ),
-                          ),
-
-                          SizedBox(
-                            height: SizeConfig.safeBlockVertical,
-                          ),
-                          Flexible(
-                            flex: 2,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Flexible(
-                                  flex: 1,
-                                  child: weather(
-                                    insideTemperatue: vehicle.insideTemperature,
-                                    outsideTempearure:
-                                        vehicle.outsideTemperature,
-                                  ),
-                                ),
-                                Flexible(
-                                  flex: 2,
-                                  child: SpeedAndFuel(
-                                      fuel: vehicle.fuelLevel,
-                                      speed: vehicle.speed),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: SizeConfig.safeBlockVertical * 6,
-                          ),
-                          Flexible(
-                            flex: 5,
-                            child: Container(
-
-
-                              // color: Colors.red,
-                              height: SizeConfig.screenHeight * 0.6,
-                              width: SizeConfig.screenWidth * 0.53,
-                              child: Stack(
-                                children: [
-                                  Positioned(
-                                    top: 0,
-                                    left: 0,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: [
-                                        TirePressure(
-                                          tname: 'L Front Tire',
-                                          tpress: vehicle.frontLeftTP,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                        ),
-                                        Container(
-                                          height:
-                                              SizeConfig.safeBlockVertical * 6,
-                                          width:
-                                              SizeConfig.safeBlockHorizontal *
-                                                  12,
-                                          child: CustomPaint(
-                                            painter: Arrowpaint2(),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Positioned(
-                                    bottom: 0,
-                                    left: 0,
-                                    child: Column(
-                                      children: [
-                                        ChildLockStatus(
-                                            isChildLockActiveLeft:
-                                                vehicle.isChildLockActiveLeft,
-                                            isChildLockActiveRight:
-                                                vehicle.isChildLockActiveRight),
-                                        RotatedBox(
-                                          quarterTurns: 2,
-                                          child: Container(
-                                            height:
-                                                SizeConfig.safeBlockVertical *
-                                                    6,
-                                            width:
-                                                SizeConfig.safeBlockHorizontal *
-                                                    12,
-                                            child: CustomPaint(
-                                              painter: Arrowpaint(),
-                                            ),
-                                          ),
-                                        ),
-                                        TirePressure(
-                                          tname: 'L Rear Tire',
-                                          tpress: vehicle.rearLeftTP,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: 0,
-                                    bottom: 0,
-                                    left: SizeConfig.safeBlockHorizontal * 12,
-                                    right: SizeConfig.safeBlockHorizontal * 12,
-                                    child: SizedBox(
-
-                                      child: AnimatedContainer(
-                                        duration: Duration(milliseconds: 10),
-                                        child: Image.asset(
-                                          'images/car_img.png',
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    right: 0,
-                                    top: 0,
-                                    child: Column(
-                                      children: [
-                                        TirePressure(
-                                          tname: 'R Front Tire',
-                                          tpress: vehicle.frontRightTP,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                        ),
-                                        Container(
-                                          height:
-                                              SizeConfig.safeBlockVertical * 6,
-                                          width:
-                                              SizeConfig.safeBlockHorizontal *
-                                                  12,
-                                          child: CustomPaint(
-                                            painter: Arrowpaint(),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Positioned(
-                                    bottom: 0,
-                                    right: 0,
-                                    child: Column(
-                                      children: [
-                                        ChildLockStatus(
-                                            isChildLockActiveLeft:
-                                                vehicle.isChildLockActiveLeft,
-                                            isChildLockActiveRight:
-                                                vehicle.isChildLockActiveRight),
-                                        RotatedBox(
-                                          quarterTurns: 2,
-                                          child: Container(
-                                            height:
-                                                SizeConfig.safeBlockVertical *
-                                                    6,
-                                            width:
-                                                SizeConfig.safeBlockHorizontal *
-                                                    12,
-                                            child: CustomPaint(
-                                              painter: Arrowpaint2(),
-                                            ),
-                                          ),
-                                        ),
-                                        TirePressure(
-                                          tname: 'R Rear Tire',
-                                          tpress: vehicle.rearRightTP,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: SizeConfig.safeBlockVertical,
-                          ),
-                          Flexible(
-                            flex: 1,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            Spacer(),
+                            ChildLockStatus(
+                                isChildLockActiveLeft:
+                                    vehicle.isChildLockActiveLeft,
+                                isChildLockActiveRight:
+                                    vehicle.isChildLockActiveRight),
+                            Spacer(),
+                            TirePressure(
+                              tname: 'Left Rear',
+                              tpress: vehicle.rearLeftTP,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Flexible(
-                                  flex: 1,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Avg. Fuel Consumtion',
-                                        style: SizeConfig.smallnormalfont2,
-                                      ),
-                                      Text(
-                                        vehicle.fuelRate.toString() +
-                                            ' KM/Litre',
-                                        style: SizeConfig.smallnormalfont,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Flexible(flex: 1, child: Rpm(rpm: vehicle.rpm)),
-                              ],
                             ),
-                          ),
-
-                        ],
-                      ),
+                            Container(
+                                height: SizeConfig.safeBlockVertical * 10),
+                          ],
+                        ),
+                        Image.asset(
+                          'images/car_img.png',
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(height: SizeConfig.safeBlockVertical * 6),
+                            TirePressure(
+                              tname: 'Right Front',
+                              tpress: vehicle.frontRightTP,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                            ),
+                            Spacer(),
+                            ChildLockStatus(
+                                isChildLockActiveLeft:
+                                    vehicle.isChildLockActiveLeft,
+                                isChildLockActiveRight:
+                                    vehicle.isChildLockActiveRight),
+                            Spacer(),
+                            TirePressure(
+                              tname: 'Right Rear',
+                              tpress: vehicle.rearRightTP,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                            ),
+                            Container(
+                                height: SizeConfig.safeBlockVertical * 10),
+                          ],
+                        ),
+                        Spacer(),
+                      ]),
                     ),
-                  )
+                  ),
+                  Flexible(
+                    flex: 1,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Flexible(
+                          flex: 1,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Fuel Consumption',
+                                style: SizeConfig.smallnormalfont2,
+                              ),
+                              Text(
+                                vehicle.fuelRate.toString() + ' km/Litre',
+                                style: SizeConfig.smallnormalfont,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Flexible(flex: 1, child: Rpm(rpm: vehicle.rpm)),
+                      ],
+                    ),
+                  ),
                 ],
-              );
-
-            }
-          },
+              ),
+            ),
+          ],
         ));
   }
 }
