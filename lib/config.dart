@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:yaml/yaml.dart';
 
-import 'Kuksa-server/intial_connection.dart';
+import 'vehicle-signals/intial_connection.dart';
 
 class GetConfig extends ConsumerStatefulWidget {
   const GetConfig({Key? key, required this.client}) : super(key: key);

@@ -6,21 +6,30 @@ import 'package:dashboard_app/widgets/fuel_and_speed.dart';
 import 'package:dashboard_app/widgets/weather.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'vehicle-signals/vss_providers.dart';
 
-import 'Kuksa-server/vehicle_provider.dart';
+class FuelRateText extends ConsumerWidget {
+  final TextStyle style;
 
-class HomePage extends ConsumerStatefulWidget {
+  FuelRateText({Key? key, required this.style}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final vehicleFuelRate = ref.watch(vehicleSignalFuelRateProvider);
+
+    return Text(
+      vehicleFuelRate.rate.toString() + ' km/Litre',
+      style: style,
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends ConsumerState<HomePage> {
-  @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    final vehicle = ref.watch(vehicleSignalProvider);
 
     return Scaffold(
         backgroundColor: Colors.black,
@@ -50,18 +59,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Flexible(
-                          flex: 1,
-                          child: weather(
-                            insideTemperatue: vehicle.insideTemperature,
-                            outsideTempearure: vehicle.outsideTemperature,
-                          ),
-                        ),
-                        Flexible(
-                          flex: 2,
-                          child: SpeedAndFuel(
-                              fuel: vehicle.fuelLevel, speed: vehicle.speed),
-                        ),
+                        Flexible(flex: 1, child: Weather()),
+                        Flexible(flex: 2, child: SpeedAndFuel()),
                       ],
                     ),
                   ),
@@ -76,25 +75,11 @@ class _HomePageState extends ConsumerState<HomePage> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Container(height: SizeConfig.safeBlockVertical * 6),
-                            TirePressure(
-                              tname: 'Left Front',
-                              tpress: vehicle.frontLeftTP,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                            ),
+                            FrontLeftTirePressure(),
                             Spacer(),
-                            ChildLockStatus(
-                                isChildLockActiveLeft:
-                                    vehicle.isChildLockActiveLeft,
-                                isChildLockActiveRight:
-                                    vehicle.isChildLockActiveRight),
+                            ChildLockStatus(),
                             Spacer(),
-                            TirePressure(
-                              tname: 'Left Rear',
-                              tpress: vehicle.rearLeftTP,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                            ),
+                            RearLeftTirePressure(),
                             Container(
                                 height: SizeConfig.safeBlockVertical * 10),
                           ],
@@ -107,25 +92,11 @@ class _HomePageState extends ConsumerState<HomePage> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Container(height: SizeConfig.safeBlockVertical * 6),
-                            TirePressure(
-                              tname: 'Right Front',
-                              tpress: vehicle.frontRightTP,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                            ),
+                            FrontRightTirePressure(),
                             Spacer(),
-                            ChildLockStatus(
-                                isChildLockActiveLeft:
-                                    vehicle.isChildLockActiveLeft,
-                                isChildLockActiveRight:
-                                    vehicle.isChildLockActiveRight),
+                            ChildLockStatus(),
                             Spacer(),
-                            TirePressure(
-                              tname: 'Right Rear',
-                              tpress: vehicle.rearRightTP,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                            ),
+                            RearRightTirePressure(),
                             Container(
                                 height: SizeConfig.safeBlockVertical * 10),
                           ],
@@ -150,14 +121,11 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 'Fuel Consumption',
                                 style: SizeConfig.smallnormalfont2,
                               ),
-                              Text(
-                                vehicle.fuelRate.toString() + ' km/Litre',
-                                style: SizeConfig.smallnormalfont,
-                              ),
+                              FuelRateText(style: SizeConfig.smallnormalfont),
                             ],
                           ),
                         ),
-                        Flexible(flex: 1, child: Rpm(rpm: vehicle.rpm)),
+                        Flexible(flex: 1, child: Rpm()),
                       ],
                     ),
                   ),
