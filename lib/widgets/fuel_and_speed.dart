@@ -1,19 +1,18 @@
 // SPDX-License-Identifier: Apache-2.0
-import 'package:dashboard_app/size.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:dashboard_app/size.dart';
+import '../vehicle-signals/vss_providers.dart';
 
-class SpeedAndFuel extends StatelessWidget {
-  double fuel;
-  double speed;
-  SpeedAndFuel({Key? key, required this.fuel, required this.speed})
-      : super(key: key);
+class SpeedAndFuel extends ConsumerWidget {
+  SpeedAndFuel({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final vehicleSpeed = ref.watch(vehicleSignalSpeedProvider);
+    final vehicleFuelLevel = ref.watch(vehicleSignalFuelLevelProvider);
     double width = MediaQuery.of(context).size.width;
     return SizedBox(
       width: width * 0.4,
@@ -22,7 +21,7 @@ class SpeedAndFuel extends StatelessWidget {
         children: [
           CircularPercentIndicator(
             radius: SizeConfig.fontsize * 1.6,
-            percent: speed / 300,
+            percent: vehicleSpeed.speed / 300,
             lineWidth: SizeConfig.fontsize / 2,
             backgroundColor: Color.fromARGB(255, 176, 213, 195),
             progressColor: Colors.lightBlueAccent,
@@ -30,7 +29,7 @@ class SpeedAndFuel extends StatelessWidget {
             circularStrokeCap: CircularStrokeCap.round,
             animateFromLastPercent: true,
             center: Text(
-              speed.toInt().toString(),
+              vehicleSpeed.speed.toInt().toString(),
               style: SizeConfig.smallnormalfont,
             ),
             footer: Text(
@@ -40,19 +39,19 @@ class SpeedAndFuel extends StatelessWidget {
           ),
           CircularPercentIndicator(
             radius: SizeConfig.fontsize * 1.6,
-            percent: fuel / 100,
+            percent: vehicleFuelLevel.level / 100,
             lineWidth: SizeConfig.fontsize / 2,
             backgroundColor: Colors.lightBlue.shade100,
-            progressColor: fuel < 25
+            progressColor: vehicleFuelLevel.level < 25
                 ? Colors.redAccent
-                : fuel < 50
+                : vehicleFuelLevel.level < 50
                     ? Colors.orange
                     : Colors.green,
             animation: true,
             circularStrokeCap: CircularStrokeCap.round,
             animateFromLastPercent: true,
             center: Text(
-              fuel.toInt().toString() + ' %',
+              vehicleFuelLevel.level.toInt().toString() + ' %',
               style: SizeConfig.smallnormalfont,
             ),
             footer: Text(
@@ -66,12 +65,13 @@ class SpeedAndFuel extends StatelessWidget {
   }
 }
 
-class Rpm extends StatelessWidget {
-  double rpm;
-  Rpm({Key? key, required this.rpm}) : super(key: key);
+class Rpm extends ConsumerWidget {
+  Rpm({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final vehicleEngineSpeed = ref.watch(vehicleSignalEngineSpeedProvider);
+
     return SizedBox(
       height: SizeConfig.safeBlockVertical * 9,
       width: SizeConfig.safeBlockHorizontal * 35,
@@ -90,14 +90,16 @@ class Rpm extends StatelessWidget {
             animateFromLastPercent: true,
             animation: true,
             animationDuration: 500,
-            percent: rpm > 9000 ? 9000 : rpm / 9000,
+            percent: vehicleEngineSpeed.speed > 9000
+                ? 9000
+                : vehicleEngineSpeed.speed / 9000,
             barRadius: Radius.circular(15),
             leading: Text(
               'RPM',
               style: SizeConfig.smallnormalfont,
             ),
             trailing: Text(
-              rpm.toInt().toString(),
+              vehicleEngineSpeed.speed.toInt().toString(),
               style: SizeConfig.smallnormalfont2,
             ),
           ),

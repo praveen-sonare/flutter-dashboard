@@ -1,21 +1,21 @@
 // SPDX-License-Identifier: Apache-2.0
-import 'package:dashboard_app/size.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:dashboard_app/size.dart';
+import '../vehicle-signals/vss_providers.dart';
 
-class ChildLockStatus extends StatelessWidget {
-  bool isChildLockActiveLeft;
-  bool isChildLockActiveRight;
-  ChildLockStatus(
-      {Key? key,
-      required this.isChildLockActiveLeft,
-      required this.isChildLockActiveRight})
-      : super(key: key);
+class ChildLockStatus extends ConsumerWidget {
+  ChildLockStatus({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return isChildLockActiveLeft && isChildLockActiveRight
+  Widget build(BuildContext context, WidgetRef ref) {
+    final vehicleLeftChildLockActive =
+        ref.watch(vehicleSignalLeftChildLockActiveProvider);
+    final vehicleRightChildLockActive =
+        ref.watch(vehicleSignalRightChildLockActiveProvider);
+
+    return vehicleLeftChildLockActive.engaged &&
+            vehicleRightChildLockActive.engaged
         ? Column(
             children: [
               Text(

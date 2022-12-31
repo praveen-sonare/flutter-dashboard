@@ -2,8 +2,8 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:dashboard_app/Kuksa-server/vehicle_config.dart';
-import 'package:dashboard_app/Kuksa-server/vehicle_methods.dart';
+import 'package:dashboard_app/vehicle-signals/vehicle_config.dart';
+import 'package:dashboard_app/vehicle-signals/vehicle_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

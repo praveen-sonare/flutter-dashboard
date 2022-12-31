@@ -1,21 +1,17 @@
 // SPDX-License-Identifier: Apache-2.0
-import 'package:dashboard_app/size.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:dashboard_app/size.dart';
+import '../vehicle-signals/vss_providers.dart';
 
-class weather extends StatelessWidget {
-  int insideTemperatue;
-  int outsideTempearure;
-  weather(
-      {Key? key,
-      required this.insideTemperatue,
-      required this.outsideTempearure})
-      : super(key: key);
+class Weather extends ConsumerWidget {
+  Weather({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final vehicleInsideTemp = ref.watch(vehicleSignalInsideTempProvider);
+    final vehicleOutsideTemp = ref.watch(vehicleSignalOutsideTempProvider);
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(SizeConfig.safeBlockVertical * 2),
@@ -60,7 +56,9 @@ class weather extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('Inside', style: SizeConfig.smallnormalfont2),
-                        Text(insideTemperatue.toString() + ' \u00B0',
+                        Text(
+                            vehicleInsideTemp.temp.toInt().toString() +
+                                ' \u00B0',
                             style: SizeConfig.normalfont),
                       ],
                     ),
@@ -75,7 +73,8 @@ class weather extends StatelessWidget {
                           style: SizeConfig.smallnormalfont2,
                         ),
                         Text(
-                          outsideTempearure.toString() + ' \u00B0',
+                          vehicleOutsideTemp.temp.toInt().toString() +
+                              ' \u00B0',
                           style: SizeConfig.normalfont,
                         ),
                       ],
