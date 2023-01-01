@@ -58,7 +58,7 @@ class Weather extends ConsumerWidget {
                         Text('Inside', style: SizeConfig.smallnormalfont2),
                         Text(
                             vehicleInsideTemp.temp.toInt().toString() +
-                                ' \u00B0',
+                                '\u00B0',
                             style: SizeConfig.normalfont),
                       ],
                     ),
@@ -74,7 +74,7 @@ class Weather extends ConsumerWidget {
                         ),
                         Text(
                           vehicleOutsideTemp.temp.toInt().toString() +
-                              ' \u00B0',
+                              '\u00B0',
                           style: SizeConfig.normalfont,
                         ),
                       ],
