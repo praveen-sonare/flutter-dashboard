@@ -85,7 +85,7 @@ class HomePage extends StatelessWidget {
                           ],
                         ),
                         Image.asset(
-                          'images/icon_purple.png',
+                          'images/icon_car.png',
                         ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
